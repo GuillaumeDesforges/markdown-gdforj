@@ -14,6 +14,21 @@ fn find_images(node: &markdown::mdast::Node) -> Vec<&markdown::mdast::Image> {
 fn main() {
     let cw_dir = std::env::current_dir().unwrap();
 
+    let md_opts = markdown::Options {
+        parse: markdown::ParseOptions {
+            constructs: markdown::Constructs {
+                frontmatter: true,
+                ..markdown::ParseOptions::default().constructs
+            },
+            ..markdown::ParseOptions::gfm()
+        },
+        compile: markdown::CompileOptions {
+            allow_dangerous_html: true,
+            ..markdown::CompileOptions::default()
+        },
+        ..markdown::Options::gfm()
+    };
+
     // Walk source and collect all .md files
     // e.g. if a file is in ./foo/bar.md, we collect "foo/bar.md"
     let md_files = walkdir::WalkDir::new(&cw_dir)
@@ -41,7 +56,7 @@ fn main() {
         let md_content = std::fs::read_to_string(&md_file).unwrap();
 
         // Process and write HTML
-        let html_content = markdown::to_html_with_options(md_content.as_str(), &markdown::Options::gfm()).unwrap();
+        let html_content = markdown::to_html_with_options(md_content.as_str(), &md_opts).unwrap();
         if !html_file.parent().unwrap().exists() {
             std::fs::create_dir_all(html_file.parent().unwrap()).unwrap();
         }
@@ -49,7 +64,7 @@ fn main() {
         println!("{} => {}", md_file.display(), html_file.display());
 
         // Copy as well images that are referenced in the .md file
-        let md_ast = markdown::to_mdast(md_content.as_str(), &markdown::ParseOptions::gfm()).unwrap();
+        let md_ast = markdown::to_mdast(md_content.as_str(), &md_opts.parse).unwrap();
         let image_files = find_images(&md_ast)   ;
         for image_file in image_files {
             let image_file = md_file.parent().unwrap().join(image_file.url.to_owned());
