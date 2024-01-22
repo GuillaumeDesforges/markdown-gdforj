@@ -2,6 +2,10 @@
 
 A light CLI tool to convert markdown files to HTML using [markdown-rs](https://github.com/wooorm/markdown-rs).
 
+> [!CAUTION]
+> This tool is my own flavor of using markdown, and is not meant to be used by anyone else.
+> Use at your own risk.
+
 ## Install
 
 ```console
