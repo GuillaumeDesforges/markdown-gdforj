@@ -23,6 +23,8 @@ writing them to a file in the directory `dist` with the same relative path.
 
 For example, `README.md` will be converted to `dist/README.html`, and `docs/README.md` will be converted to `dist/docs/README.html`.
 
+It will also copy all image files that are referenced in the markdown files to the `dist` directory, with appropriate path.
+
 ## Develop
 
 Provide a Rust environment:
