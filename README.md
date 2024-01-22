@@ -1,4 +1,4 @@
-# markdown-rs-cli
+# markdown-gdforj
 
 A light CLI tool to convert markdown files to HTML using [markdown-rs](https://github.com/wooorm/markdown-rs).
 
@@ -9,7 +9,7 @@ A light CLI tool to convert markdown files to HTML using [markdown-rs](https://g
 ## Install
 
 ```console
-$ nix shell github:GuillaumeDesforges/markdown-rs-cli
+$ nix shell github:GuillaumeDesforges/markdown-gdforj
 ```
 
 ## Usage
@@ -19,7 +19,7 @@ Change your current working directory at the root of your project.
 Then call the CLI:
 
 ```console
-$ markdown-rs-cli
+$ markdown-gdforj
 ```
 
 It will convert all markdown files in the current directory and its subdirectories to HTML,
